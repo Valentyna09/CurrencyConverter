@@ -1,0 +1,56 @@
+:root {
+  --color-header-footer: #3C4048;
+  --color-h: #00ABB3;
+  --color-f:#EAEAEA;
+  --color-s: #B2B2B2;
+  --color-t: white;
+}
+.App {
+  color: var(--color-t);
+  text-align: center;
+}
+.App header {
+  padding: 40px;
+  background: var(--color-header-footer);
+}
+.App header h1 {
+  color: var(--color-h);
+  font-size: 50px;
+  font-weight: 700;
+}
+.App header p {
+  margin: 0;
+  color: var(--color-h);
+  font-size: 20px;
+}
+.App .rates {
+  color: var(--color-t);
+  font-size: 25px;
+  font-weight: 700;
+}
+.App .rates i {
+  color: #F7931A;
+  font-size: 22px;
+}
+.App main {
+  background: var(--color-f);
+}
+.App footer {
+  padding: 30px;
+  background: var(--color-header-footer);
+}
+.App footer p {
+  font-size: 15px;
+}
+.App footer a {
+  text-decoration: none;
+  color: var(--color-h);
+}
+.App footer i {
+  margin-right: 25px;
+  font-size: 40px;
+  vertical-align: -8px;
+}
+.Loading {
+  margin: 200px 800px;
+}
