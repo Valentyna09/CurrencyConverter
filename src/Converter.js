@@ -50,7 +50,7 @@ export default function Converter(props) {
         } else if (secondUnit === uah) {
             return setFirstNumber(secondNumber / firstUnit);
         } else {
-            return setFirstNumber(secondNumber * firstUnit / secondUnit)
+            return setFirstNumber(secondNumber * firstUnit / secondUnit);
         }
     }
     function SubmitSecond(event) {
