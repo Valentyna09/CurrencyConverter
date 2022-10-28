@@ -9,48 +9,93 @@
   color: var(--color-t);
   text-align: center;
 }
+/* Header  */
 .App header {
   padding: 40px;
   background: var(--color-header-footer);
 }
-.App header h1 {
+.Header h1 {
   color: var(--color-h);
   font-size: 50px;
   font-weight: 700;
 }
-.App header p {
+.Header p {
   margin: 0;
   color: var(--color-h);
   font-size: 20px;
 }
-.App .rates {
+.Header .rates {
   color: var(--color-t);
   font-size: 25px;
   font-weight: 700;
 }
-.App .rates i {
+.Header .rates i {
   color: #F7931A;
   font-size: 22px;
 }
+/* Main  */
 .App main {
   background: var(--color-f);
 }
+.Converter {
+  padding: 35px;
+}
+.Converter h2 {
+  margin-bottom: 30px;
+  color: var(--color-h);
+}
+.Converter select,
+.Converter input {
+  border: 3px solid var(--color-h);
+  border-radius: 10px;
+  box-shadow: 4px 6px 10px var(--color-s);
+  color: var(--color-header-footer);
+  background: var(--color-t);
+  font-size: 25px;
+  text-align: center;
+  width: 380px;
+  height: 80px;
+}
+.Converter select {
+  font-weight: 500;
+}
+.Converter button {
+  margin: 0 10px 0;
+  border: none;
+  background: transparent;
+}
+.Converter button i {
+  color: var(--color-h);
+  font-size: 55px;
+}
+.Converter p {
+  margin: 17px 0;
+  color: var(--color-h);
+  font-size: 20px;
+}
+/* Footer  */
 .App footer {
   padding: 30px;
   background: var(--color-header-footer);
 }
-.App footer p {
+.Footer p {
   font-size: 15px;
 }
-.App footer a {
+.Footer a {
   text-decoration: none;
   color: var(--color-h);
 }
-.App footer i {
+.Footer i {
   margin-right: 25px;
   font-size: 40px;
   vertical-align: -8px;
 }
 .Loading {
   margin: 200px 800px;
+}
+  @media (max-width:1200px) {
+    .Converter select,
+    .Converter input {
+      width: 300px;
+  }
 }

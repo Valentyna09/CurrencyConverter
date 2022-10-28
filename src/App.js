@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import axios from "axios";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import { ThreeDots } from 'react-loader-spinner';
-import Converter from './Converter';
-import CurrentDate from './CurrentDate';
+import Header from './components/Header';
+import Converter from './converter/Converter';
+import Footer from './components/Footer';
+import Spiner from './components/Spinner';
 
 export default function App() {
   let [rates, setRates] = useState({ loaded: false });
@@ -32,52 +33,15 @@ export default function App() {
   if(rates.loaded) {
     return (
         <div className="App">
-          <header>
-            <div className='container'>
-                <h1>Exchange Rates</h1>
-                <p>on</p>
-                <CurrentDate />
-                <div className='row rates'>
-                  <div className='col-lg-4 col-md-12 mt-4'>
-                    <span>🇺🇸 {rates.unitUsd}  &nbsp; {parseFloat(rates.usdBuy).toFixed(2) } / {parseFloat(rates.usdSale).toFixed(2)} ₴</span>
-                  </div>
-                  <div className='col-lg-4 col-md-12 mt-4'>
-                    <span>🇪🇺 {rates.unitEur}  &nbsp; {parseFloat(rates.eurBuy).toFixed(2)} / {parseFloat(rates.eurSale).toFixed(2)} €</span> 
-                  </div>
-                  <div className='col-lg-4 col-md-12 mt-4'>
-                    <span><i className="fa-brands fa-bitcoin"></i> {rates.unitBtc} &nbsp; {parseFloat(rates.btcBuy).toFixed(2)} / {parseFloat(rates.btcSale).toFixed(2)} ₿</span>
-                  </div>
-                </div>
-            </div>
-          </header>
-          <main>
-            <Converter info={rates} />
-          </main>
-          <footer>
-            <div>
-              <span>
-                <i className ="fa-brands fa-github"></i>
-                <a href='https://github.com/Valentyna09/converter' target = "_blanck">Open-sourse code</a> by Valentyna Rudenko
-              </span>
-            </div>
-          </footer>
+          <Header info={rates} />
+          <Converter info={rates} />
+          <Footer />
         </div>
     );
   } else {
     apiUrl();
     return ( 
-        <div className="Loading">
-            <ThreeDots 
-            height="100" 
-            width="100" 
-            radius="9"
-            color="black" 
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            wrapperClassName=""
-            visible={true}
-                />
-        </div>
+        <Spiner />
     );
   }
 }
