@@ -2,18 +2,38 @@ import React,{useState} from 'react';
 
 export default function Converter(props) {
     let uah = 1;
-    let usdBuy = props.info.usdBuy;
-    let usdSale = props.info.usdSale;
-    let eurBuy = props.info.eurBuy;
-    let eurSale = props.info.eurSale;
-    let btcBuy = props.info.btcBuy;
-    let btcSale = props.info.btcSale;
+    let units = [
+        {
+            name: "₴ UAH (Ukraine Hryvnia)",
+            buy: 1,
+            sale: 1,
+        },
+        {
+            name: "$ USD (US Dollar)",
+            buy: props.info.usdBuy,
+            sale: props.info.usdSale,
+        },
+        {
+            name: "€ EUR (Euro)",
+            buy: props.info.eurBuy,
+            sale: props.info.eurSale,
+        },
+        {
+            name: "BTC (Bitcoin)",
+            buy: props.info.btcBuy,
+            sale: props.info.btcSale,
+        }
+    ]
+
     let [firstNumber, setFirstNumber] = useState(' ');
     let [secondNumber, setSecondNumber] = useState(' ');
     let [firstUnit, setFirstUnit] = useState(uah);
-    let [secondUnit, setSecondUnit] = useState(usdSale);
+    let [secondUnit, setSecondUnit] = useState(units[1].sale);
 
                 // change Units
+    // changeFirstUnit = (event) => ({ setFirstNumber(''); setFirstUnit(event.target.value)})
+    
+    
     function changeFirstUnit(event) {
         event.preventDefault();
         setFirstNumber('');
@@ -25,15 +45,6 @@ export default function Converter(props) {
         setSecondUnit(event.target.value);
     }
                 // change numbers and calculating
-    function calculatingSecondNumber() {
-        if (secondUnit === uah && firstUnit === uah) {
-            return setSecondNumber(firstNumber);
-        } else if (firstUnit === uah) {
-            return setSecondNumber(firstNumber / secondUnit); 
-        } else {
-            return setSecondNumber(firstNumber * firstUnit / secondUnit);
-        } 
-    } 
     function SubmitFirst(event) {
         event.preventDefault();
         calculatingSecondNumber();
@@ -43,15 +54,13 @@ export default function Converter(props) {
         setFirstNumber(event.target.value);
         SubmitFirst();   
     }
-    function calculatingFirstNumber() {
-        if (firstUnit === uah && secondUnit === uah) {
-            return setFirstNumber (secondNumber)  
-        } else if (secondUnit === uah) {
-            return setFirstNumber(secondNumber / firstUnit);
+    function calculatingSecondNumber() {
+        if (secondUnit === uah && firstUnit === uah) {
+            return setSecondNumber(firstNumber);
         } else {
-            return setFirstNumber(secondNumber * firstUnit / secondUnit);
-        }
-    }
+            return setSecondNumber(firstNumber * firstUnit / secondUnit);
+        } 
+    } 
     function SubmitSecond(event) {
         event.preventDefault();
         calculatingFirstNumber();
@@ -61,6 +70,14 @@ export default function Converter(props) {
         setSecondNumber(event.target.value);
         SubmitSecond();
     }
+    function calculatingFirstNumber() {
+        if (firstUnit === uah && secondUnit === uah) {
+            return setFirstNumber (secondNumber)  
+        } else {
+            return setFirstNumber(secondNumber * secondUnit / firstUnit);
+        }
+    }
+
     return (
         <main>
             <div className='container Converter'>
@@ -71,10 +88,9 @@ export default function Converter(props) {
                         <form onSubmit={SubmitFirst}>
                             <div className='mb-3'>
                                 <select name="first unit" value={firstUnit} onChange={changeFirstUnit}>
-                                    <option value={uah}>₴ UAH (Ukraine Hryvnia)</option>
-                                    <option value={usdBuy}>$ USD (US Dollar)</option>
-                                    <option value={eurBuy}>€ EUR (Euro)</option>
-                                    <option value={btcBuy}>BTC (Bitcoin)</option>
+                                    {units.map(function (unitFirst, indexFirst) {
+                                        return <option key={indexFirst} value={unitFirst.buy}> {unitFirst.name}</option>
+                                    })}
                                 </select>
                             </div>
                             <div>
@@ -92,10 +108,9 @@ export default function Converter(props) {
                         <form onSubmit={SubmitSecond}>
                             <div className='mb-3'>
                                 <select name="second select" value={secondUnit} onChange={changeSecondUnit}>
-                                    <option value={uah}>₴ UAH (Ukraine Hryvnia)</option>
-                                    <option value={usdSale}>$ USD (US Dollar)</option>
-                                    <option value={eurSale}>€ EUR (Euro)</option>
-                                    <option value={btcSale}>BTC (Bitcoin)</option>
+                                    {units.map(function (unitSecond, indexSecond) {
+                                        return <option key={indexSecond} value={unitSecond.sale}> {unitSecond.name}</option>
+                                    })}
                                 </select>
                             </div>
                             <div>

@@ -9,7 +9,7 @@ import Spiner from './components/Spinner';
 
 export default function App() {
   let [rates, setRates] = useState({ loaded: false });
-
+  
   function apiUrl() {
     let url = `https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`;
     axios.get(url).then(exchangeRates);
