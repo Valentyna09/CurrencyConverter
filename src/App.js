@@ -1,47 +1,35 @@
-import React, { useState } from 'react';
-import axios from "axios";
+import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import { useApi } from './components/useApi';
 import Header from './components/Header';
 import Converter from './converter/Converter';
 import Footer from './components/Footer';
 import Spiner from './components/Spinner';
 
 export default function App() {
-  let [rates, setRates] = useState({ loaded: false });
+  const { loading, data, error } = useApi(`https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`);
+
+  if (loading) return (<Spiner />);
+  if (error) return <pre>{JSON.stringify(error, null, 2)}</pre>;
+
+      let info = ({
+      unitUsd: data[0].ccy,
+      usdBuy: data[0].buy,
+      usdSale: data[0].sale,
+      unitEur: data[1].ccy,
+      eurBuy: data[1].buy,
+      eurSale: data[1].sale,
+      unitBtc: data[2].ccy,
+      btcBuy: data[2].buy,
+      btcSale: data[2].sale
+      });
   
-  function apiUrl() {
-    let url = `https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`;
-    axios.get(url).then(exchangeRates);
-  }
-
-  function exchangeRates(response) {
-    setRates({
-      loaded: true,
-      unitUsd: response.data[0].ccy,
-      usdBuy: response.data[0].buy,
-      usdSale: response.data[0].sale,
-      unitEur: response.data[1].ccy,
-      eurBuy: response.data[1].buy,
-      eurSale: response.data[1].sale,
-      unitBtc: response.data[2].ccy,
-      btcBuy: response.data[2].buy,
-      btcSale: response.data[2].sale
-    });
-  }
-
-  if(rates.loaded) {
-    return (
-        <div className="App">
-          <Header info={rates} />
-          <Converter info={rates} />
-          <Footer />
-        </div>
-    );
-  } else {
-    apiUrl();
-    return ( 
-        <Spiner />
-    );
-  }
+  return (
+    <div className="App">
+      <Header info={info} />
+      <Converter info={info} />
+      <Footer />
+    </div>
+  );
 }

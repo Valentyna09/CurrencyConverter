@@ -1,7 +1,6 @@
 import React,{useState} from 'react';
 
 export default function Converter(props) {
-    let uah = 1;
     let units = [
         {
             name: "₴ UAH (Ukraine Hryvnia)",
@@ -24,16 +23,11 @@ export default function Converter(props) {
             sale: props.info.btcSale,
         }
     ]
-
     let [firstNumber, setFirstNumber] = useState(' ');
     let [secondNumber, setSecondNumber] = useState(' ');
-    let [firstUnit, setFirstUnit] = useState(uah);
+    let [firstUnit, setFirstUnit] = useState(units[0].buy);
     let [secondUnit, setSecondUnit] = useState(units[1].sale);
-
-                // change Units
-    // changeFirstUnit = (event) => ({ setFirstNumber(''); setFirstUnit(event.target.value)})
-    
-    
+     
     function changeFirstUnit(event) {
         event.preventDefault();
         setFirstNumber('');
@@ -48,18 +42,23 @@ export default function Converter(props) {
     function SubmitFirst(event) {
         event.preventDefault();
         calculatingSecondNumber();
-    }  
+    }
+
     function enterFirstNumber(event) {
         setSecondNumber('');
         setFirstNumber(event.target.value);
         SubmitFirst();   
     }
+    // function calculatingSecondNumber() {
+    //     if (secondUnit === units[0].sale && firstUnit === units[0].buy) {
+    //         return setSecondNumber(firstNumber);
+    //     } else {
+    //         return setSecondNumber(firstNumber * firstUnit / secondUnit);
+    //     }
+    // }
+    
     function calculatingSecondNumber() {
-        if (secondUnit === uah && firstUnit === uah) {
-            return setSecondNumber(firstNumber);
-        } else {
-            return setSecondNumber(firstNumber * firstUnit / secondUnit);
-        } 
+        setSecondNumber (secondUnit === units[0].sale && firstUnit === units[0].buy ? firstNumber : firstNumber * firstUnit / secondUnit);
     } 
     function SubmitSecond(event) {
         event.preventDefault();
@@ -71,13 +70,15 @@ export default function Converter(props) {
         SubmitSecond();
     }
     function calculatingFirstNumber() {
-        if (firstUnit === uah && secondUnit === uah) {
-            return setFirstNumber (secondNumber)  
-        } else {
-            return setFirstNumber(secondNumber * secondUnit / firstUnit);
-        }
+        setFirstNumber (firstUnit === units[0].buy && secondUnit === units[0].sale ? secondNumber : secondNumber * secondUnit / firstUnit);
     }
-
+    // function calculatingFirstNumber() {
+    //     if (firstUnit === units[0].buy && secondUnit === units[0].sale) {
+    //         return setFirstNumber (secondNumber)  
+    //     } else {
+    //         return setFirstNumber(secondNumber * secondUnit / firstUnit);
+    //     }
+    // }
     return (
         <main>
             <div className='container Converter'>
