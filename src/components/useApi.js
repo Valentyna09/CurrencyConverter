@@ -20,6 +20,5 @@ export function useApi(url) {
       }
     )()
   }, [url])
-
-  return {data, error, loading}
+    return {data, error, loading}
 };
